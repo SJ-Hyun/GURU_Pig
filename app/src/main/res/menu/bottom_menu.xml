@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/tab1"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_calendar_month_24"
+        android:title="월별"/>
+
+    <item
+        android:id="@+id/tab2"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="일별"/>
+
+    <item
+        android:id="@+id/tab3"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="결산"/>
+
+    <item
+        android:id="@+id/tab4"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_assessment_24"
+        android:title="통계"/>
+
+</menu>
