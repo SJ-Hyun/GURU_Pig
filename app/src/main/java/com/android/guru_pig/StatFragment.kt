@@ -46,10 +46,10 @@ class StatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        //Piechart로 전환
         val intent = Intent(getActivity(), Piechart::class.java)
         startActivity(intent)
-        return inflater.inflate(R.layout.activity_piechart, container, false)
+        return inflater.inflate(R.layout.fragment_stat, container, false)
     }
 
     companion object {
