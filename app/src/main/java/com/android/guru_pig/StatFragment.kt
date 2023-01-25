@@ -78,7 +78,7 @@ class StatFragment : Fragment() {
             data = pieData
             description.isEnabled = false
             isRotationEnabled = false
-            centerText = "통계"
+            centerText = "월간 지출 내역"
             setEntryLabelColor(Color.BLACK)
             animateY(1400, Easing.EaseInOutQuad)
             animate()

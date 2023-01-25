@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ClosingFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ClosingFragment" />
+        android:layout_height="wrap_contet"
+        android:text="이번달 예산 설정"
+        android:layout_weigth="1"/>
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_contet"
+        android:text="결산"
+        android:layout_weigth="2"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_contet"
+        android:text="총수입/총지출"
+        android:layout_weigth="1"/>
+
+
+</LinearLayout>
