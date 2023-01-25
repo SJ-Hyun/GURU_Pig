@@ -28,7 +28,7 @@ class Piechart : AppCompatActivity() {
         entries.add(PieEntry(508f, "식비"))
         entries.add(PieEntry(670f, "경조사/회비"))
 
-        // add a lot of colors
+        // 색깔
         val colorsItems = ArrayList<Int>()
         for (c in ColorTemplate.VORDIPLOM_COLORS) colorsItems.add(c)
         for (c in ColorTemplate.JOYFUL_COLORS) colorsItems.add(c)

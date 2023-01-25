@@ -24,8 +24,4 @@
         app:labelVisibilityMode="labeled"
         android:id="@+id/bottomnav" />
 
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
