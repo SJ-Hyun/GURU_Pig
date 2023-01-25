@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
@@ -31,44 +32,59 @@ private const val ARG_PARAM2 = "param2"
  */
 class StatFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var chart: PieChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val intent = Intent(getActivity(), Piechart::class.java)
-        startActivity(intent)
-        return inflater.inflate(R.layout.activity_piechart, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_stat, container, false)
+        chart = view.findViewById(R.id.chart)
+
+        chart.setUsePercentValues(true)
+
+        // data Set
+        val entries = ArrayList<PieEntry>()
+        entries.add(PieEntry(508f, "문화생활"))
+        entries.add(PieEntry(600f, "교육"))
+        entries.add(PieEntry(750f, "생활용품"))
+        entries.add(PieEntry(508f, "식비"))
+        entries.add(PieEntry(670f, "경조사/회비"))
+
+        // 색깔
+        val colorsItems = ArrayList<Int>()
+        for (c in ColorTemplate.VORDIPLOM_COLORS) colorsItems.add(c)
+        for (c in ColorTemplate.JOYFUL_COLORS) colorsItems.add(c)
+        for (c in ColorTemplate.COLORFUL_COLORS) colorsItems.add(c)
+        for (c in ColorTemplate.LIBERTY_COLORS) colorsItems.add(c)
+        for (c in ColorTemplate.PASTEL_COLORS) colorsItems.add(c)
+        colorsItems.add(ColorTemplate.getHoloBlue())
+
+        val pieDataSet = PieDataSet(entries, "")
+        pieDataSet.apply {
+            colors = colorsItems
+            valueTextColor = Color.BLACK
+            valueTextSize = 16f
+        }
+
+        val pieData = PieData(pieDataSet)
+        chart.apply {
+            data = pieData
+            description.isEnabled = false
+            isRotationEnabled = false
+            centerText = "통계"
+            setEntryLabelColor(Color.BLACK)
+            animateY(1400, Easing.EaseInOutQuad)
+            animate()
+        }
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment month.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StatFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

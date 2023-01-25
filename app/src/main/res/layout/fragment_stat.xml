@@ -6,9 +6,10 @@
     tools:context=".StatFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="StatFragment" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
