@@ -1,5 +1,6 @@
 package com.android.guru_pig
 
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +20,7 @@ class DayInput : AppCompatActivity() {
     lateinit var edtClass : EditText
     lateinit var edtMoney : EditText
     lateinit var edtContent : EditText
-    lateinit var inputBtn :Button
+    lateinit var inputBtn : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +54,8 @@ class DayInput : AppCompatActivity() {
             sqlitedb.execSQL("INSERT INTO "+str_account+" VALUES ('" + str_account + "', '" + str_Class + "', " + str_Money + "'', " + str_Content + "')")
             sqlitedb.close()
 
-            finish()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
-
-
     }
 }
