@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     var userID: String = "userID"
-   /* lateinit var fname: String
+    lateinit var fname: String
     lateinit var str: String
     lateinit var calendarView: CalendarView
     lateinit var updateBtn: Button
@@ -36,20 +36,20 @@ class MainActivity : AppCompatActivity() {
     lateinit var contextEditText: EditText
 
 
-    @SuppressLint("MissingInflatedId")*/
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*// UI값 생성
-        calendarView=findViewById(R.id.calendarView)
+        // UI값 생성
+        calendarView=findViewById(R.id.calenderView)
         diaryTextView=findViewById(R.id.diaryTextView)
         saveBtn=findViewById(R.id.saveBtn)
         deleteBtn=findViewById(R.id.deleteBtn)
         updateBtn=findViewById(R.id.updateBtn)
         diaryContent=findViewById(R.id.diaryContent)
         contextEditText=findViewById(R.id.contextEditText)
-*/
+
         val bt_nav = findViewById<BottomNavigationView>(R.id.bottomnav)
 
         bt_nav.setOnItemSelectedListener { item ->
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-       /* calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             diaryTextView.visibility = View.VISIBLE
             saveBtn.visibility = View.VISIBLE
             contextEditText.visibility = View.VISIBLE
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
             str = contextEditText.text.toString()
             diaryContent.text = str
             diaryContent.visibility = View.VISIBLE
-        }*/
+        }
     }
 
     private fun changeFragment(fragment: Fragment) {
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    /*// 달력 내용 조회, 수정
+    // 달력 내용 조회, 수정
     fun checkDay(cYear: Int, cMonth: Int, cDay: Int, userID: String) {
         //저장할 파일 이름설정
         fname = "" + userID + cYear + "-" + (cMonth + 1) + "" + "-" + cDay + ".txt"
@@ -194,5 +194,5 @@ class MainActivity : AppCompatActivity() {
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
-    }*/
+    }
 }
