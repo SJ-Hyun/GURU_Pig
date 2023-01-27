@@ -14,7 +14,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.harrywhewell.scrolldatepicker.DayScrollDatePicker
+import com.harrywhewell.scrolldatepicker.OnDateSelectedListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,9 +62,14 @@ class DayFragment : Fragment() {
 
         layout = view.findViewById(R.id.list)
 
+        //주간달력
         dayDate=view.findViewById(R.id.dayDate)
-        dayDate.setStartDate(27,1,2023)
+        dayDate.setStartDate(1,1,2023)
+        dayDate.getSelectedDate(OnDateSelectedListener(){
 
+        })
+
+        
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM plus", null)
 
