@@ -14,12 +14,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.harrywhewell.scrolldatepicker.DayScrollDatePicker
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [DayFragment.newInstance] factory method to
@@ -34,6 +34,8 @@ class DayFragment : Fragment() {
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
+    lateinit var dayDate : DayScrollDatePicker
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,10 +46,8 @@ class DayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         var view = inflater.inflate(R.layout.fragment_day, container, false)
         addBtn = view.findViewById(R.id.addBtn)
-
         addBtn.setOnClickListener {
             activity?.let{
                 val intent = Intent(context, DayInput::class.java)
@@ -59,6 +59,9 @@ class DayFragment : Fragment() {
         sqlitedb = dbManger.readableDatabase
 
         layout = view.findViewById(R.id.list)
+
+        dayDate=view.findViewById(R.id.dayDate)
+        dayDate.setStartDate(27,1,2023)
 
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM plus", null)
@@ -97,5 +100,4 @@ class DayFragment : Fragment() {
         // Inflate the layout for this fragment
         return view
     }
-
 }
