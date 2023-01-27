@@ -6,6 +6,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,8 +16,11 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.harrywhewell.scrolldatepicker.DayScrollDatePicker
-import com.harrywhewell.scrolldatepicker.OnDateSelectedListener
+import androidx.annotation.RequiresApi
+import devs.mulham.horizontalcalendar.HorizontalCalendar
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
+import java.nio.file.attribute.AclEntry
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,13 +40,18 @@ class DayFragment : Fragment() {
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
-    lateinit var dayDate : DayScrollDatePicker
+    //lateinit var dayDate : DayScrollDatePicker
+    lateinit var calTextView: TextView
+    lateinit var startDate:Calendar
+    lateinit var endDate:Calendar
+    lateinit var horizontalCalendar: HorizontalCalendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("Range")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,13 +72,33 @@ class DayFragment : Fragment() {
         layout = view.findViewById(R.id.list)
 
         //주간달력
-        dayDate=view.findViewById(R.id.dayDate)
-        dayDate.setStartDate(1,1,2023)
-        dayDate.getSelectedDate(OnDateSelectedListener(){
+        calTextView=view.findViewById(R.id.calTextView)
 
+        //시작날짜
+        startDate=Calendar.getInstance()
+        startDate.add(Calendar.MONTH,-1)
+
+        //종료날짜
+        endDate=Calendar.getInstance()
+        endDate.add(Calendar.MONTH,1)
+
+        //가로달력 실행
+        horizontalCalendar= HorizontalCalendar.Builder(view,R.id.HCalendar)
+            .range(startDate,endDate)
+            .datesNumberOnScreen(7)
+            .build()
+
+        //날짜 선택 이벤트
+        horizontalCalendar.setCalendarListener(object : HorizontalCalendarListener(){
+            override fun onDateSelected(date:Calendar, position:Int){
+                println("안녕하세요")
+            }
         })
+        //dayDate=view.findViewById(R.id.dayDate)
+        //dayDate.setStartDate(1,1,2023)
+        //dayDate.getSelectedDate(OnDateSelectedListener(){ })
 
-        
+
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM plus", null)
 
