@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.fragment_day.*
+import kotlinx.android.synthetic.main.fragment_day.view.*
 import java.nio.file.attribute.AclEntry
 import java.util.*
 
@@ -41,7 +42,6 @@ class DayFragment : Fragment() {
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
-    //lateinit var dayDate : DayScrollDatePicker
     lateinit var calTextView: TextView
     lateinit var startDate:Calendar
     lateinit var endDate:Calendar
@@ -73,7 +73,7 @@ class DayFragment : Fragment() {
 
         layout = rootView.findViewById(R.id.list)
 
-        //주간달력
+        //*주간달력*
         calTextView=rootView.findViewById(R.id.calTextView)
 
         //시작날짜
@@ -90,16 +90,12 @@ class DayFragment : Fragment() {
             .datesNumberOnScreen(5)
             .build()
 
-        //날짜 선택 이벤트
+        //날짜선택 이벤트
         horizontalCalendar.setCalendarListener(object : HorizontalCalendarListener(){
             override fun onDateSelected(date:Calendar, position:Int){
 
             }
         })
-        //dayDate=view.findViewById(R.id.dayDate)
-        //dayDate.setStartDate(1,1,2023)
-        //dayDate.getSelectedDate(OnDateSelectedListener(){ })
-
 
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM plus", null)
@@ -139,28 +135,4 @@ class DayFragment : Fragment() {
         return rootView
     }
 
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initCalendar()
-    }
-
-    private fun initCalendar(){
-        val endDate = Calendar.getInstance()
-        endDate.add(Calendar.MONTH, 1)
-
-        val startDate = Calendar.getInstance()
-        startDate.add(Calendar.MONTH, -1)
-
-        val calView: View = requireView().findViewById(R.id.HCalendar)
-        val horizontalCalendar:HorizontalCalendar=
-            HorizontalCalendar.Builder(activity,calView.getId())
-                .range(startDate,endDate)
-                .datesNumberOnScreen(5)
-                .build()
-        horizontalCalendar.setCalendarListener(object : HorizontalCalendarListener() {
-            override fun onDateSelected(date: Calendar, position: Int) {
-
-            }
-        })
-    }*/
 }
