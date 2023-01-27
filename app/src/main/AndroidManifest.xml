@@ -14,13 +14,10 @@
         android:theme="@style/Theme.GURU_Pig"
         tools:targetApi="31">
         <activity
+            android:name=".PigBank"
+            android:exported="false" />
+        <activity
             android:name=".DayInput"
-            android:exported="false" />
-        <activity
-            android:name=".Piechart"
-            android:exported="false" />
-        <activity
-            android:name=".Activity_Day"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

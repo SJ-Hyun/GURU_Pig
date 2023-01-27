@@ -51,8 +51,11 @@ class DayInput : AppCompatActivity() {
             var str_Content: String = edtContent.text.toString()
 
             sqlitedb = dbManger.writableDatabase
-            sqlitedb.execSQL("INSERT INTO "+str_account+" VALUES ('" + str_account + "', '" + str_Class + "', " + str_Money + "'', " + str_Content + "')")
+            sqlitedb.execSQL("INSERT INTO "+str_account+" VALUES ('"+str_account+"', '"+str_Class+"', "+edtMoney.text+", '"+str_Content+"');")
             sqlitedb.close()
+
+
+
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
