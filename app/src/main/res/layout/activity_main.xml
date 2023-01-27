@@ -25,7 +25,7 @@
         app:labelVisibilityMode="labeled"
         android:id="@+id/bottomnav" />
 
-    <!--<CalendarView
+    <CalendarView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/calendarView"
@@ -110,6 +110,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:visibility="invisible">
-    </Button>-->
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
