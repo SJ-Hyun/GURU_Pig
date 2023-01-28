@@ -15,15 +15,14 @@
         android:title="일별"/>
 
     <item
-        android:id="@+id/tab3"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_baseline_attach_money_24"
-        android:title="결산"/>
-
-    <item
         android:id="@+id/tab4"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_baseline_assessment_24"
         android:title="통계"/>
 
+    <item
+        android:id="@+id/tab3"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="결산"/>
 </menu>

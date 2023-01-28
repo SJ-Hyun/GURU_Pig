@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class AlbumActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,15 +15,28 @@ class AlbumActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        title = "앨범"
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        val layoutManager = GridLayoutManager(this, 3)
+        recyclerView.layoutManager = layoutManager
+        val adapter = RecyclerViewAdapter(this, album)
+        recyclerView.adapter = adapter
+
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            android.R.id.home ->{
+        when (item.itemId) {
+            android.R.id.home -> {
                 finish()
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
+
+    var album = arrayOf<Int>(
+        R.drawable.pig, R.drawable.intro
+    )
 }

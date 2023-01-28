@@ -87,7 +87,7 @@ class DayFragment : Fragment() {
         //가로달력 실행
         horizontalCalendar= HorizontalCalendar.Builder(rootView,R.id.HCalendar)
             .range(startDate,endDate)
-            .datesNumberOnScreen(5)
+            .datesNumberOnScreen(7)
             .build()
 
         //날짜선택 이벤트
