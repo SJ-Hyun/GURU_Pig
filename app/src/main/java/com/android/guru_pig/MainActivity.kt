@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             R.id.item2->{
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, AlbumActivity::class.java)
                 startActivity(intent)
             }
             R.id.item3->{
