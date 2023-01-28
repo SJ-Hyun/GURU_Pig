@@ -3,9 +3,11 @@ package com.android.guru_pig
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_pig_bank.*
 
 class AlbumActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +24,6 @@ class AlbumActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         val adapter = RecyclerViewAdapter(this, album)
         recyclerView.adapter = adapter
-
     }
 
 
@@ -37,6 +38,8 @@ class AlbumActivity : AppCompatActivity() {
     }
 
     var album = arrayOf<Int>(
-        R.drawable.pig, R.drawable.intro
+        R.drawable.pigcha1, R.drawable.intro, R.drawable.pig,R.drawable.pigintro2
     )
+
+
 }

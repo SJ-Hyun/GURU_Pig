@@ -9,11 +9,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:src="@drawable/intro"/>
+
+        <ImageView
+            android:layout_width="383dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:src="@drawable/pigintro2" />
     </LinearLayout>
 
 </LinearLayout>

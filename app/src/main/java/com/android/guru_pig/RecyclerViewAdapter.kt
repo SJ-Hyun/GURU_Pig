@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 class RecyclerViewAdapter internal constructor(var context: Context, var album: Array<Int>) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     var albumTitle = arrayOf(
-        "돼지1", "돼지2", "돼지3", "돼지4", "돼지5"
+        "돼지1", "돼지2", "돼지3", "돼지4", "돼지5","돼지6","돼지7","돼지8","돼지9","돼지10"
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,7 +39,7 @@ class RecyclerViewAdapter internal constructor(var context: Context, var album: 
         }
     }
 
-    //개수 가져오기
+    //크기 가져오기
     override fun getItemCount(): Int {
         return album.size
     }
