@@ -13,23 +13,96 @@
         android:paddingTop="?attr/actionBarSize"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
+            android:layout_weight="0.8"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="목표 지출액 설정"
-            android:layout_weight="1"/>
+            android:orientation="vertical"
+            android:layout_height="0dp">
+            <TextView
+                android:layout_weight="0.5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:text="이번 달 목표 지출액을 입력하세요 "
+                android:textSize="20dp"/>
+            <EditText
+                android:layout_weight="0.7"
+                android:id="@+id/goalText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:textSize="25dp"
+                android:textColor="#000000"/>
+            <Button
+                android:layout_weight="0.6"
+                android:id="@+id/goalBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="완료"
+                android:layout_gravity="right"/>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:layout_weight="1.7"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="결산"
-            android:layout_weight="2"/>
+            android:layout_height="0dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="월별"
+                android:background="#E185A5"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/closeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"/>
+            </ScrollView>
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:layout_weight="0.5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="총수입/총지출"
-            android:layout_weight="1"/>
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="총수입"
+                android:background="#E185A5"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"/>
+            <LinearLayout
+                android:id="@+id/plusText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:textSize="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="0.8"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="총지출"
+                android:background="#E185A5"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"/>
+            <LinearLayout
+                android:id="@+id/minusText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
 
     </LinearLayout>
 
