@@ -38,7 +38,7 @@ class AlbumActivity : AppCompatActivity() {
     }
 
     var album = arrayOf<Int>(
-        R.drawable.pigcha1, R.drawable.intro, R.drawable.pig,R.drawable.pigintro2
+        R.drawable.pigcha1, R.drawable.pigcha2, R.drawable.pigcha3,R.drawable.pigcha4
     )
 
 

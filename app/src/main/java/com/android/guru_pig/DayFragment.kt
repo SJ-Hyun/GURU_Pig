@@ -36,13 +36,12 @@ private const val ARG_PARAM2 = "param2"
 class DayFragment : Fragment() {
 
     lateinit var addBtn : Button
-
     lateinit var layout: LinearLayout
 
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
-    lateinit var calTextView: TextView
+    //lateinit var calTextView: TextView
     lateinit var startDate:Calendar
     lateinit var endDate:Calendar
     private lateinit var horizontalCalendar: HorizontalCalendar
@@ -61,12 +60,7 @@ class DayFragment : Fragment() {
         var rootView = inflater.inflate(R.layout.fragment_day, container, false)
 
         addBtn = rootView.findViewById(R.id.addBtn)
-        addBtn.setOnClickListener {
-            activity?.let{
-                val intent = Intent(context, DayInput::class.java)
-                startActivity(intent)
-            }
-        }
+
 
         dbManger = DBManger(getActivity(), "accountDB", null, 1)
         sqlitedb = dbManger.readableDatabase
@@ -74,8 +68,6 @@ class DayFragment : Fragment() {
         layout = rootView.findViewById(R.id.list)
 
         //*주간달력*
-        calTextView=rootView.findViewById(R.id.calTextView)
-
         //시작날짜
         startDate=Calendar.getInstance()
         startDate.add(Calendar.MONTH,-1)
@@ -93,7 +85,12 @@ class DayFragment : Fragment() {
         //날짜선택 이벤트
         horizontalCalendar.setCalendarListener(object : HorizontalCalendarListener(){
             override fun onDateSelected(date:Calendar, position:Int){
-
+                addBtn.setOnClickListener {
+                    activity?.let{
+                        val intent = Intent(context, DayInput::class.java)
+                        startActivity(intent)
+                    }
+                }
             }
         })
 
@@ -102,28 +99,36 @@ class DayFragment : Fragment() {
 
         var num: Int = 0
         while(cursor.moveToNext()) {
+            //var str_account=cursor.getString(cursor.getColumnIndex("differ")).toString()
             var str_class = cursor.getString(cursor.getColumnIndex("class")).toString()
             var money = cursor.getInt((cursor.getColumnIndex("money")))
-            var str_content = cursor.getInt((cursor.getColumnIndex("content"))).toString()
+            var str_content = cursor.getString(cursor.getColumnIndex("content")).toString()
 
             var layout_item: LinearLayout = LinearLayout(getActivity())
             layout_item.orientation = LinearLayout.VERTICAL
             layout_item.id = num
 
+            /*var tvDiffer:TextView= TextView(getActivity())
+            tvDiffer.text=str_account
+            tvDiffer.textSize = 30f
+            tvDiffer.setBackgroundColor(Color.MAGENTA)
+            layout_item.addView(tvDiffer)*/
+
             var tvClass: TextView = TextView(getActivity())
             tvClass.text = str_class
-            tvClass.textSize = 30f
-            tvClass.setBackgroundColor(Color.LTGRAY)
             layout_item.addView(tvClass)
-
-            var tvMoney: TextView = TextView(getActivity())
-            tvMoney.text = money.toString()
-            layout_item.addView(tvMoney)
 
             var tvContent: TextView = TextView(getActivity())
             tvContent.text = str_content
             layout_item.addView(tvContent)
 
+            var tvMoney: TextView = TextView(getActivity())
+            tvMoney.text = money.toString()
+            tvMoney.textSize = 20f
+            tvMoney.setBackgroundColor(Color.LTGRAY)
+            layout_item.addView(tvMoney)
+
+            layout.addView(layout_item)
             num++
         }
         cursor.close()
