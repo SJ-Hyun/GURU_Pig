@@ -60,7 +60,12 @@ class DayFragment : Fragment() {
         var rootView = inflater.inflate(R.layout.fragment_day, container, false)
 
         addBtn = rootView.findViewById(R.id.addBtn)
-
+        addBtn.setOnClickListener {
+            activity?.let{
+                val intent = Intent(context, DayInput::class.java)
+                startActivity(intent)
+            }
+        }
 
         dbManger = DBManger(getActivity(), "accountDB", null, 1)
         sqlitedb = dbManger.readableDatabase
@@ -85,12 +90,7 @@ class DayFragment : Fragment() {
         //날짜선택 이벤트
         horizontalCalendar.setCalendarListener(object : HorizontalCalendarListener(){
             override fun onDateSelected(date:Calendar, position:Int){
-                addBtn.setOnClickListener {
-                    activity?.let{
-                        val intent = Intent(context, DayInput::class.java)
-                        startActivity(intent)
-                    }
-                }
+
             }
         })
 
