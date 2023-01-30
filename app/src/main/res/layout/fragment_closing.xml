@@ -17,6 +17,8 @@
             android:layout_weight="0.8"
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
             android:layout_height="0dp">
             <TextView
                 android:layout_weight="0.5"
@@ -36,7 +38,7 @@
             <Button
                 android:layout_weight="0.6"
                 android:id="@+id/goalBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="0dp"
                 android:text="완료"
                 android:layout_gravity="right"/>
@@ -51,8 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="월별"
-                android:background="#E185A5"
-                android:textColor="#FFFFFF"
+                android:background="#FFF0F5"
                 android:textSize="20dp"/>
             <ScrollView
                 android:layout_width="match_parent"
@@ -74,8 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="총수입"
-                android:background="#E185A5"
-                android:textColor="#FFFFFF"
+                android:background="#FFF0F5"
                 android:textSize="20dp"/>
             <LinearLayout
                 android:id="@+id/plusText"
@@ -94,8 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="총지출"
-                android:background="#E185A5"
-                android:textColor="#FFFFFF"
+                android:background="#FFF0F5"
                 android:textSize="20dp"/>
             <LinearLayout
                 android:id="@+id/minusText"
