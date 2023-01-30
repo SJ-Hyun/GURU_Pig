@@ -2,7 +2,9 @@ package com.android.guru_pig
 
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
+import android.text.Editable
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
@@ -15,16 +17,13 @@ class DayDialog(context: Context) {
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
-    fun showDialog(year: Int, month: Int, day: Int){
+    fun showDialog(year: Int, month: Int, day: Int, acc: String){
         dialog.setContentView(R.layout.activity_day_input)
 
         dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.setCanceledOnTouchOutside(true)
         dialog.setCancelable(true)
 
-        val rg_account = dialog.findViewById<RadioGroup>(R.id.rg_acc)
-        val rb_plus = dialog.findViewById<RadioButton>(R.id.plus)
-        val rb_minus = dialog.findViewById<RadioButton>(R.id.minus)
         val spinClass = dialog.findViewById<Spinner>(R.id.spinClass)
         val edtMoney = dialog.findViewById<EditText>(R.id.edtMoney)
         val edtContent = dialog.findViewById<EditText>(R.id.edtContent)
@@ -35,8 +34,7 @@ class DayDialog(context: Context) {
         val acontext: Context = applicationContext()
         dbManger = DBManger(acontext, "accountDB", null, 1)
 
-
-        if (rb_plus.isChecked == true) {
+        if (acc == "plus") {
             spinClass.adapter = ArrayAdapter.createFromResource(applicationContext(), R.array.plusList, android.R.layout.simple_spinner_dropdown_item)
         }else {
             spinClass.adapter = ArrayAdapter.createFromResource(applicationContext(), R.array.minusList, android.R.layout.simple_spinner_dropdown_item)
@@ -62,18 +60,10 @@ class DayDialog(context: Context) {
         inputBtn.setOnClickListener {
             sqlitedb = dbManger.writableDatabase
 
-            var str_account: String = ""
-            if (rg_account.checkedRadioButtonId == R.id.plus) {
-                str_account = "plus"
-            }
-            if (rg_account.checkedRadioButtonId == R.id.minus) {
-                str_account = "minus"
-            }
-
             var str_Money: String = edtMoney.text.toString()
             var str_Content: String = edtContent.text.toString()
 
-            sqlitedb.execSQL("INSERT INTO "+str_account+" VALUES('"+year+"','"+month+"','"+day+"','"+str_Class+"','"+str_Money+"','"+str_Content+"')")
+            sqlitedb.execSQL("INSERT INTO "+acc+" VALUES('"+year+"','"+month+"','"+day+"','"+str_Class+"','"+str_Money+"','"+str_Content+"')")
             sqlitedb.close()
             dialog.dismiss()
         }
@@ -97,13 +87,18 @@ class DayDialog(context: Context) {
         val deleteBtn = dialog.findViewById<Button>(R.id.btnDelete)
         val updateBtn = dialog.findViewById<Button>(R.id.btnUpdate)
 
+        var plusArray = arrayOf("월급","부수입","용돈","상여금","금융소득","기타")
+        var minusArray = arrayOf("식비","교통","문화생활","편의생활","패션/미용","주거/통신","건강","교육","용돈","식비","경조사/선물","반려동물","기타")
+
         val acontext: Context = applicationContext()
+        dbManger = DBManger(acontext, "accountDB", null, 1)
 
         if (acc == "plus") {
             spinClass.adapter = ArrayAdapter.createFromResource(applicationContext(), R.array.plusList, android.R.layout.simple_spinner_dropdown_item)
-        }
-        if (acc == "minus") {
+            spinClass.setSelection(plusArray.indexOf(aclass))
+        }else {
             spinClass.adapter = ArrayAdapter.createFromResource(applicationContext(), R.array.minusList, android.R.layout.simple_spinner_dropdown_item)
+            spinClass.setSelection(minusArray.indexOf(aclass))
         }
 
         var str_Class: String = ""
@@ -123,6 +118,9 @@ class DayDialog(context: Context) {
             }
         }
 
+        edtMoney.setText(money)
+        edtContent.setText(content)
+
         updateBtn.setOnClickListener {
             sqlitedb = dbManger.writableDatabase
 
@@ -132,11 +130,11 @@ class DayDialog(context: Context) {
             sqlitedb.execSQL(
                 "UPDATE " + acc
                         + " SET "
-                        + "class=" + str_Class + ", "
-                        + "content=" + str_Content + ", "
+                        + "class='" + str_Class + "', "
+                        + "content='" + str_Content + "', "
                         + "money=" + str_Money
                         + " WHERE "
-                        + "year=" + year + " AND month=" + month + " AND day=" + day + " AND class=" + aclass + " AND content=" + content + " AND money=" + money
+                        + "year="+year+" AND month="+month+" AND day="+day+" AND class='"+aclass+"' AND content='"+content+"' AND money="+money
             )
             sqlitedb.close()
             dialog.dismiss()
@@ -144,13 +142,12 @@ class DayDialog(context: Context) {
 
         deleteBtn.setOnClickListener {
             sqlitedb = dbManger.writableDatabase
-            sqlitedb.execSQL("DELETE FROM "+acc+"" +
-                    " WHERE "
-                    + "year=" + year + " AND month=" + month + " AND day=" + day + " AND class=" + aclass + " AND content=" + content + " AND money=" + money)
+            sqlitedb.execSQL("DELETE FROM "+acc+" WHERE "
+                    +"year="+year+" AND month="+month+" AND day="+day+" AND class='"+aclass+"' AND content='"+content+"' AND money="+money)
             sqlitedb.close()
             dialog.dismiss()
         }
 
-
+        dialog.show()
     }
 }

@@ -36,10 +36,6 @@ class DayFragment : Fragment() {
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
-    lateinit var tvClass: TextView
-    lateinit var tvMoney: TextView
-    lateinit var tvContent: TextView
-
     lateinit var rv_histoy: RecyclerView
 
     lateinit var btnPlus : Button
@@ -58,7 +54,7 @@ class DayFragment : Fragment() {
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -69,6 +65,12 @@ class DayFragment : Fragment() {
         sqlitedb = dbManger.readableDatabase
 
         rv_histoy = rootView.findViewById(R.id.history_rv)
+
+        btnPlus = rootView.findViewById(R.id.btnPlus)
+        btnMinus = rootView.findViewById(R.id.btnMinus)
+        btnAdd = rootView.findViewById(R.id.btnAdd)
+
+        var selected: String = "plus"
 
         //*주간달력*
         //시작날짜
@@ -90,6 +92,8 @@ class DayFragment : Fragment() {
         month = selectedDay.get(Calendar.MONTH)+1
         day = selectedDay.get(Calendar.DAY_OF_MONTH)
 
+        selectChange(selected)
+
         //날짜선택 이벤트
         horizontalCalendar.setCalendarListener(object : HorizontalCalendarListener(){
             @SuppressLint("Range")
@@ -97,28 +101,26 @@ class DayFragment : Fragment() {
                 year = date.get(Calendar.YEAR)
                 month = date.get(Calendar.MONTH)+1
                 day = date.get(Calendar.DAY_OF_MONTH)
-                showHistory("plus", year, month, day)
+                selectChange(selected)
             }
         })
 
 
-        btnPlus = rootView.findViewById(R.id.btnPlus)
         btnPlus.setOnClickListener {
-            showHistory("plus", year, month, day)
+            selected = "plus"
+            selectChange(selected)
         }
 
-        btnMinus = rootView.findViewById(R.id.btnMinus)
         btnMinus.setOnClickListener {
-            showHistory("minus", year, month, day)
+            selected = "minus"
+            selectChange(selected)
         }
 
-        btnAdd = rootView.findViewById(R.id.btnAdd)
         btnAdd.setOnClickListener {
             val dialog = DayDialog(requireActivity())
-            dialog.showDialog(year, month, day)
+            dialog.showDialog(year, month, day, selected)
         }
 
-        // Inflate the layout for this fragment
         return rootView
     }
 
@@ -153,12 +155,26 @@ class DayFragment : Fragment() {
         historyAdapter.itemClickListener = object : HistoryAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val item = itemList[position]
+
                 val dialog = DayDialog(requireActivity())
                 dialog.updateDialog(year, month, day, item.acc, item.aclass, item.content, item.money)
-
             }
         }
+    }
 
+    fun selectChange(selected: String){
+        showHistory(selected, year, month, day)
+        if (selected == "plus"){
+            btnPlus.setBackgroundColor(Color.rgb(225,133,165))
+            btnPlus.setTextColor(Color.WHITE)
+            btnMinus.setBackgroundColor(Color.WHITE)
+            btnMinus.setTextColor(Color.rgb(225,133,165))
+        }else{
+            btnMinus.setBackgroundColor(Color.rgb(225,133,165))
+            btnMinus.setTextColor(Color.WHITE)
+            btnPlus.setBackgroundColor(Color.WHITE)
+            btnPlus.setTextColor(Color.rgb(225,133,165))
+        }
 
     }
 }

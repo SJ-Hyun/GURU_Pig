@@ -35,7 +35,6 @@ class HistoryAdapter(val itemList: ArrayList<HistoryItem>) :
 
 
     inner class HistoryAdapter(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val rg_acc = itemView.findViewById<RadioGroup>(R.id.rg_acc)
         val tv_class = itemView.findViewById<TextView>(R.id.tvClass)
         val tv_content = itemView.findViewById<TextView>(R.id.tvContent)
         val tv_money = itemView.findViewById<TextView>(R.id.tvMoney)
