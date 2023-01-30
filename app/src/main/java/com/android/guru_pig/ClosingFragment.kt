@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 
@@ -30,6 +31,8 @@ class ClosingFragment : Fragment() {
     lateinit var layout2: LinearLayout
     lateinit var layout3: LinearLayout
     lateinit var layout4: LinearLayout
+
+    lateinit var goalBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +54,15 @@ class ClosingFragment : Fragment() {
         layout3 = view.findViewById(R.id.plusText)
         layout4 = view.findViewById(R.id.minusText)
 
+        goalBtn = view.findViewById(R.id.goalBtn)
+
+        //goalBtn 클릭하면 목표 지출액이 db에 입력돼야 함
+        goalBtn.setOnClickListener {
+
+        }
+
+
+        //월별 db
         var cursor: Cursor
         cursor = sqlitedb.rawQuery("SELECT * FROM plus", null)
 

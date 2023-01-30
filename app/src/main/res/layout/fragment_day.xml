@@ -7,16 +7,19 @@
     android:orientation="vertical"
     tools:context=".DayFragment">
 
-    <include layout="@layout/toolbar"/>
-
-    <devs.mulham.horizontalcalendar.HorizontalCalendarView
-        android:id="@+id/HCalendar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="103dp"
-        android:background="#FFFFFF"
-        app:selectorColor="#E185A5"
-        app:textColorNormal="#A6A6A6"
-        app:textColorSelected="#E185A5" />
+        android:layout_height="wrap_content"
+        android:paddingTop="?attr/actionBarSize">
+        <devs.mulham.horizontalcalendar.HorizontalCalendarView
+            android:id="@+id/HCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="103dp"
+            android:background="#FFFFFF"
+            app:selectorColor="#E185A5"
+            app:textColorNormal="#A6A6A6"
+            app:textColorSelected="#E185A5" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

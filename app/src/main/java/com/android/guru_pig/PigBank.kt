@@ -1,5 +1,6 @@
 package com.android.guru_pig
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_pig_bank.*
 
 class PigBank : AppCompatActivity() {
     var pigImage: ImageView? = null
@@ -26,6 +28,11 @@ class PigBank : AppCompatActivity() {
 
         //돼지이미지
         pigImage=findViewById(R.id.pigImage)
+
+        pushAlbum.setOnClickListener {
+            val intent = Intent(this, AlbumActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
