@@ -6,7 +6,7 @@
         android:id="@+id/item1"
         android:enabled="true"
         android:title="메뉴1"
-        android:icon="@drawable/pig"
+        android:icon="@drawable/min_toolbar_pig_size"
         app:showAsAction="always"/>
 
     <item

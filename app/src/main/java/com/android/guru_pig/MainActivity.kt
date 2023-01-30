@@ -1,6 +1,8 @@
 package com.android.guru_pig
 
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +11,16 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+open class MyApp: Application(){
+    lateinit var context: Context
+    init {instance=this}
+    companion object{
+        private var instance: MyApp? = null
+        fun applicationContext(): Context {
+            return instance!!.applicationContext
+        }
+    }
+}
 
 class MainActivity : AppCompatActivity() {
 

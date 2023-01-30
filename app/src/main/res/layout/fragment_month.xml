@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="30dp"
-    android:paddingLeft="30dp"
     tools:context=".MonthFragment"
     android:orientation="vertical">
 
@@ -16,7 +14,7 @@
 
         <CalendarView
             android:id="@+id/calendarView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
@@ -64,36 +62,22 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
             <Button
                 android:id="@+id/saveBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="20dp"
                 android:text="저장"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contextEditText" />
+                android:layout_marginRight="15dp"
+                android:visibility="invisible"/>
 
             <Button
                 android:text="수정"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/updateBtn"
-                app:layout_constraintBaseline_toBaselineOf="@+id/saveBtn"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:visibility="invisible"/>
 
             <Button
@@ -101,19 +85,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/deleteBtn"
-                app:layout_constraintBaseline_toBaselineOf="@+id/updateBtn"
-                app:layout_constraintEnd_toEndOf="@+id/saveBtn"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="15dp"
                 android:visibility="invisible">
             </Button>
-
-
         </LinearLayout>
-
     </LinearLayout>
-
-
-
-
 </LinearLayout>

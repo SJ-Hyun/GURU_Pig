@@ -2,32 +2,27 @@ package com.android.guru_pig
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import devs.mulham.horizontalcalendar.HorizontalCalendar
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener
 import kotlinx.android.synthetic.main.fragment_day.*
 import kotlinx.android.synthetic.main.fragment_day.view.*
-import java.nio.file.attribute.AclEntry
 import java.util.*
+import kotlin.collections.ArrayList
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Use the [DayFragment.newInstance] factory method to
@@ -35,42 +30,45 @@ private const val ARG_PARAM2 = "param2"
  */
 class DayFragment : Fragment() {
 
-    lateinit var addBtn : Button
+    lateinit var btnAdd : Button
     lateinit var layout: LinearLayout
 
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
-    //lateinit var calTextView: TextView
-    lateinit var startDate:Calendar
-    lateinit var endDate:Calendar
+    lateinit var tvClass: TextView
+    lateinit var tvMoney: TextView
+    lateinit var tvContent: TextView
+
+    lateinit var rv_histoy: RecyclerView
+
+    lateinit var btnPlus : Button
+    lateinit var btnMinus : Button
+
+    lateinit var startDate: Calendar
+    lateinit var endDate: Calendar
+
     private lateinit var horizontalCalendar: HorizontalCalendar
 
+    var year: Int = 0
+    var month: Int = 0
+    var day: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("Range")
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         var rootView = inflater.inflate(R.layout.fragment_day, container, false)
 
-        addBtn = rootView.findViewById(R.id.addBtn)
-        addBtn.setOnClickListener {
-            activity?.let{
-                val intent = Intent(context, DayInput::class.java)
-                startActivity(intent)
-            }
-        }
-
         dbManger = DBManger(getActivity(), "accountDB", null, 1)
         sqlitedb = dbManger.readableDatabase
 
-        layout = rootView.findViewById(R.id.list)
+        rv_histoy = rootView.findViewById(R.id.history_rv)
 
         //*주간달력*
         //시작날짜
@@ -87,57 +85,82 @@ class DayFragment : Fragment() {
             .datesNumberOnScreen(7)
             .build()
 
+        year = startDate.get(Calendar.YEAR)
+        month = startDate.get(Calendar.MONTH)+1
+        day = startDate.get(Calendar.DAY_OF_MONTH)
+
         //날짜선택 이벤트
         horizontalCalendar.setCalendarListener(object : HorizontalCalendarListener(){
+            @SuppressLint("Range")
             override fun onDateSelected(date:Calendar, position:Int){
-
+                year = date.get(Calendar.YEAR)
+                month = date.get(Calendar.MONTH)+1
+                day = date.get(Calendar.DAY_OF_MONTH)
+                showHistory("plus", year, month, day)
             }
         })
 
-        var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM plus", null)
 
-        var num: Int = 0
-        while(cursor.moveToNext()) {
-            //var str_account=cursor.getString(cursor.getColumnIndex("differ")).toString()
-            var str_class = cursor.getString(cursor.getColumnIndex("class")).toString()
-            var money = cursor.getInt((cursor.getColumnIndex("money")))
-            var str_content = cursor.getString(cursor.getColumnIndex("content")).toString()
-
-            var layout_item: LinearLayout = LinearLayout(getActivity())
-            layout_item.orientation = LinearLayout.VERTICAL
-            layout_item.id = num
-
-            /*var tvDiffer:TextView= TextView(getActivity())
-            tvDiffer.text=str_account
-            tvDiffer.textSize = 30f
-            tvDiffer.setBackgroundColor(Color.MAGENTA)
-            layout_item.addView(tvDiffer)*/
-
-            var tvClass: TextView = TextView(getActivity())
-            tvClass.text = str_class
-            layout_item.addView(tvClass)
-
-            var tvContent: TextView = TextView(getActivity())
-            tvContent.text = str_content
-            layout_item.addView(tvContent)
-
-            var tvMoney: TextView = TextView(getActivity())
-            tvMoney.text = money.toString()
-            tvMoney.textSize = 20f
-            tvMoney.setBackgroundColor(Color.LTGRAY)
-            layout_item.addView(tvMoney)
-
-            layout.addView(layout_item)
-            num++
+        btnPlus = rootView.findViewById(R.id.btnPlus)
+        btnPlus.setOnClickListener {
+            showHistory("plus", year, month, day)
         }
-        cursor.close()
-        sqlitedb.close()
-        dbManger.close()
+
+        btnMinus = rootView.findViewById(R.id.btnMinus)
+        btnMinus.setOnClickListener {
+            showHistory("minus", year, month, day)
+        }
+
+        btnAdd = rootView.findViewById(R.id.btnAdd)
+        btnAdd.setOnClickListener {
+            val dialog = DayDialog(requireActivity())
+            dialog.showDialog(year, month, day)
+        }
+
+
 
 
         // Inflate the layout for this fragment
         return rootView
     }
 
+    @SuppressLint("Range")
+    fun showHistory(acc: String, year: Int, month: Int, day: Int) {
+        sqlitedb = dbManger.readableDatabase
+
+        var cursor: Cursor
+        cursor = sqlitedb.rawQuery(
+            "SELECT * FROM " + acc + " WHERE year=" + year + " AND month=" + month + " AND day=" + day,
+            null
+        )
+
+        val itemList = ArrayList<HistoryItem>()
+        while (cursor.moveToNext()) {
+            var str_class = cursor.getString(cursor.getColumnIndex("class")).toString()
+            var money = cursor.getInt(cursor.getColumnIndex("money"))
+            var str_content = cursor.getString(cursor.getColumnIndex("content")).toString()
+
+            itemList.add(HistoryItem(acc, str_class, str_content, money.toString()))
+        }
+        cursor.close()
+        sqlitedb.close()
+        dbManger.close()
+
+        val historyAdapter = HistoryAdapter(itemList)
+        historyAdapter.notifyDataSetChanged()
+
+        rv_histoy.adapter = historyAdapter
+        rv_histoy.layoutManager = LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)
+
+        historyAdapter.itemClickListener = object : HistoryAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val item = itemList[position]
+                val dialog = DayDialog(requireActivity())
+                dialog.updateDialog(year, month, day, item.acc, item.aclass, item.content, item.money)
+
+            }
+        }
+
+
+    }
 }
