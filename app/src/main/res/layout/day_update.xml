@@ -9,35 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp">
-        <RadioGroup
-            android:id="@+id/rg_acc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:checkedButton="@+id/plus">
-            <RadioButton
-                android:id="@+id/plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수입"
-                android:paddingRight="50dp" />
-
-            <RadioButton
-                android:id="@+id/minus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="지출"
-                />
-        </RadioGroup>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingTop="20dp">
         <TextView
             android:layout_width="60sp"
             android:layout_height="wrap_content"
@@ -81,17 +53,17 @@
         android:paddingTop="30dp"
         android:paddingBottom="30dp">
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:text="취소"/>
+            android:text="삭제"/>
         <Button
-            android:id="@+id/btnInput"
+            android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="입력"/>
+            android:text="수정"/>
     </LinearLayout>
 
 </LinearLayout>

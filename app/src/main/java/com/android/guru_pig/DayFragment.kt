@@ -85,9 +85,10 @@ class DayFragment : Fragment() {
             .datesNumberOnScreen(7)
             .build()
 
-        year = startDate.get(Calendar.YEAR)
-        month = startDate.get(Calendar.MONTH)+1
-        day = startDate.get(Calendar.DAY_OF_MONTH)
+        var selectedDay : Calendar = Calendar.getInstance()
+        year = selectedDay.get(Calendar.YEAR)
+        month = selectedDay.get(Calendar.MONTH)+1
+        day = selectedDay.get(Calendar.DAY_OF_MONTH)
 
         //날짜선택 이벤트
         horizontalCalendar.setCalendarListener(object : HorizontalCalendarListener(){
@@ -116,9 +117,6 @@ class DayFragment : Fragment() {
             val dialog = DayDialog(requireActivity())
             dialog.showDialog(year, month, day)
         }
-
-
-
 
         // Inflate the layout for this fragment
         return rootView

@@ -26,10 +26,10 @@ class DayInput : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day_input)
 
-        rg_account=findViewById(R.id.differ)
+        rg_account=findViewById(R.id.rg_acc)
         rb_plus = findViewById(R.id.plus)
         rb_minus = findViewById(R.id.minus)
-        edtClass = findViewById(R.id.edtClass)
+        //edtClass = findViewById(R.id.edtClass)
         edtMoney = findViewById(R.id.edtMoney)
         edtContent = findViewById(R.id.edtContent)
         inputBtn = findViewById(R.id.btnInput)
