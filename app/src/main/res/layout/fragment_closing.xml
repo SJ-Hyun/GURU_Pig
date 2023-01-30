@@ -80,42 +80,38 @@
             android:layout_weight="0.5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="총수입"
                 android:background="#FFF0F5"
                 android:textSize="20dp"/>
-            <LinearLayout
+            <TextView
                 android:id="@+id/plusText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:textSize="20dp"/>
+                android:layout_height="wrap_content"
+                android:textSize="30dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_weight="0.8"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="총지출"
                 android:background="#FFF0F5"
                 android:textSize="20dp"/>
-            <LinearLayout
+            <TextView
                 android:id="@+id/minusText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:textSize="30dp"/>
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 </LinearLayout>

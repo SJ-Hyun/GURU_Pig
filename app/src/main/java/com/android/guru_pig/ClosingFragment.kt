@@ -24,15 +24,17 @@ import android.widget.TextView
  * create an instance of this fragment.
  */
 class ClosingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
     lateinit var layout2: LinearLayout
-    lateinit var layout3: LinearLayout
-    lateinit var layout4: LinearLayout
+
+    lateinit var plusTextView: TextView
+    lateinit var minusTextView: TextView
 
     lateinit var goalBtn: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +53,8 @@ class ClosingFragment : Fragment() {
         sqlitedb = dbManger.readableDatabase
 
         layout2 = view.findViewById(R.id.closeText)
-        layout3 = view.findViewById(R.id.plusText)
-        layout4 = view.findViewById(R.id.minusText)
+        plusTextView = view.findViewById(R.id.plusText)
+        minusTextView = view.findViewById(R.id.minusText)
 
         goalBtn = view.findViewById(R.id.goalBtn)
 
@@ -61,27 +63,69 @@ class ClosingFragment : Fragment() {
 
         }
 
-
-        //월별 db
+        //월별
         var cursor: Cursor
-        cursor = sqlitedb.rawQuery("SELECT * FROM plus", null)
+        var month: Int = 12
 
-        var num: Int = 0
-        while(cursor.moveToNext()) {
-            var money = cursor.getInt((cursor.getColumnIndex("money")))
+        for (i in 1..month){
+            var monthPlus = 0
+            var monthMinus = 0
 
             var layout_item: LinearLayout = LinearLayout(getActivity())
             layout_item.orientation = LinearLayout.VERTICAL
-            layout_item.id = num
+            layout_item.id = i
 
-            var tvMoney: TextView = TextView(getActivity())
-            tvMoney.text = money.toString()
-            tvMoney.textSize = 18f
-            layout_item.addView(tvMoney)
+            cursor = sqlitedb.rawQuery("SELECT money FROM plus WHERE month="+i, null)
+
+            while(cursor.moveToNext()) {
+                var money = cursor.getInt(0)
+                monthPlus += money
+            }
+
+            cursor = sqlitedb.rawQuery("SELECT money FROM minus WHERE month="+i, null)
+            while(cursor.moveToNext()) {
+                var money = cursor.getInt(0)
+                monthMinus += money
+            }
+
+            var tvMonth: TextView = TextView(getActivity())
+            tvMonth.text = i.toString()+"월"
+            tvMonth.textSize = 20f
+            tvMonth.setBackgroundColor(Color.LTGRAY)
+            layout_item.addView(tvMonth)
+
+            var tvMonthPlus: TextView = TextView(getActivity())
+            tvMonthPlus.text = "총수입 : " + monthPlus.toString()
+            layout_item.addView(tvMonthPlus)
+
+            var tvMonthMinus: TextView = TextView(getActivity())
+            tvMonthMinus.text = "총지출 : " + monthMinus.toString()
+            layout_item.addView(tvMonthMinus)
 
             layout2.addView(layout_item)
-            num++
+
         }
+
+        //총수입
+        cursor = sqlitedb.rawQuery("SELECT money FROM plus", null)
+
+        var allPlus: Int = 0
+        while(cursor.moveToNext()) {
+            var money = cursor.getInt(0)
+            allPlus += money
+        }
+
+        plusTextView.text = allPlus.toString()
+
+        //총지출
+        cursor = sqlitedb.rawQuery("SELECT money FROM minus", null)
+        var allMinus: Int = 0
+        while(cursor.moveToNext()) {
+            var money = cursor.getInt(0)
+            allMinus += money
+        }
+        minusTextView.text = allMinus.toString()
+
         cursor.close()
         sqlitedb.close()
         dbManger.close()
