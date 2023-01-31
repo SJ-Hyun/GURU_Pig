@@ -75,7 +75,7 @@ class ClosingFragment : Fragment() {
             var goal_money:String = goalText.text.toString()
 
             sqlitedb = dbManger.writableDatabase
-                sqlitedb.execSQL("INSERT INTO goal VALUES("+month+", "+goal_money+")")
+            sqlitedb.execSQL("INSERT INTO goal VALUES("+month+", "+goal_money+")")
             sqlitedb.close()
             dbManger.close()
 
@@ -169,3 +169,4 @@ class ClosingFragment : Fragment() {
 
 
 }
+

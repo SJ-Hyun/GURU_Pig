@@ -3,18 +3,12 @@ package com.android.guru_pig
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_pig_bank.*
-import java.io.ByteArrayOutputStream
 
 class PigBank : AppCompatActivity() {
     lateinit var pigImage: ImageView
@@ -37,12 +31,9 @@ class PigBank : AppCompatActivity() {
         pigImage=findViewById(R.id.pigImage)
         totalText=findViewById(R.id.totalText)
 
-
         //db
-
         dbManger = DBManger(this, "accountDB", null, 1)
         sqlitedb = dbManger.readableDatabase
-
 
         var cursor: Cursor
 
@@ -50,7 +41,6 @@ class PigBank : AppCompatActivity() {
 
         for (i in 1..12) {
             var g_money = 0
-            var monthPlus = 0
             var monthMinus = 0
 
             cursor = sqlitedb.rawQuery("SELECT g_money FROM goal WHERE month=" + i, null)
@@ -59,24 +49,27 @@ class PigBank : AppCompatActivity() {
                 g_money = money
             }
 
-            cursor = sqlitedb.rawQuery("SELECT money FROM plus WHERE month=" + i, null)
-            while (cursor.moveToNext()) {
-                var money = cursor.getInt(0)
-                monthPlus += money
-            }
-
             cursor = sqlitedb.rawQuery("SELECT money FROM minus WHERE month=" + i, null)
             while (cursor.moveToNext()) {
                 var money = cursor.getInt(0)
                 monthMinus += money
             }
 
-            totalSaving += g_money-(monthMinus-monthPlus)
+            totalSaving += g_money-monthMinus
+
+            cursor.close()
         }
 
-        cursor.close()
         sqlitedb.close()
         dbManger.close()
+
+        //저축액 달성시 캐릭터 전환
+        totalText.text = totalSaving.toString()
+
+        if(totalSaving<100000) pigImage!!.setImageResource(R.drawable.pigcha1)
+        else if(totalSaving<200000) pigImage!!.setImageResource(R.drawable.pigcha2)
+        else if(totalSaving<300000) pigImage!!.setImageResource(R.drawable.pigcha3)
+        else pigImage!!.setImageResource(R.drawable.pigcha4)
 
 
         pushAlbum.setOnClickListener {
@@ -84,16 +77,6 @@ class PigBank : AppCompatActivity() {
             intent.putExtra("total",totalSaving)
             startActivity(intent)
         }
-
-        //저축액 달성시 캐릭터 전환
-        //var tText = totalText.text.toString()
-        //var total: Int = tText.toInt()
-        totalText.text = totalSaving.toString()
-
-        if(totalSaving<100000) pigImage!!.setImageResource(R.drawable.pigcha1)
-        else if(totalSaving<200000) pigImage!!.setImageResource(R.drawable.pigcha2)
-        else if(totalSaving<300000) pigImage!!.setImageResource(R.drawable.pigcha3)
-        else pigImage!!.setImageResource(R.drawable.pigcha4)
 
 
     }
