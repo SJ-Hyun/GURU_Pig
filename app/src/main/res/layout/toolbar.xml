@@ -4,8 +4,7 @@
     android:layout_height="?attr/actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
-    app:title="@string/app_name"
-    app:titleTextColor="@color/white"
+    app:title=" "
     android:background="#E185A5"
     app:menu="@menu/menu_toolbar">
 
