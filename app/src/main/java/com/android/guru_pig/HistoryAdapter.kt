@@ -3,8 +3,6 @@ package com.android.guru_pig
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,7 +21,6 @@ class HistoryAdapter(val itemList: ArrayList<HistoryItem>) :
     }
 
     override fun onBindViewHolder(holder: HistoryAdapter, position: Int) {
-        //holder.rg_acc.checkedRadioButtonId = itemList[position].acc
         holder.tv_class.text = itemList[position].aclass
         holder.tv_content.text = itemList[position].content
         holder.tv_money.text = itemList[position].money

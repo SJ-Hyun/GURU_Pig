@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerViewAdapter internal constructor(var context: Context, var album: Array<Int>) :
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     var albumTitle = arrayOf(
-        "기본", "3개월", "두살", "다섯살"
+        "기본/저축액 십만원 미만", "삼개월/십만원 이상 저축 시 성장", "두살/이십만원 이상 저축 시 성장", "다섯살/삼십만원 이상 저축 시 성장"
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

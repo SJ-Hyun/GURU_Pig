@@ -1,19 +1,15 @@
 package com.android.guru_pig
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import devs.mulham.horizontalcalendar.HorizontalCalendar
@@ -30,8 +26,6 @@ import kotlin.collections.ArrayList
  */
 class DayFragment : Fragment() {
 
-    lateinit var btnAdd : Button
-    lateinit var layout: LinearLayout
 
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
@@ -40,6 +34,7 @@ class DayFragment : Fragment() {
 
     lateinit var btnPlus : Button
     lateinit var btnMinus : Button
+    lateinit var btnAdd : Button
 
     lateinit var startDate: Calendar
     lateinit var endDate: Calendar
@@ -49,6 +44,7 @@ class DayFragment : Fragment() {
     var year: Int = 0
     var month: Int = 0
     var day: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -105,17 +101,19 @@ class DayFragment : Fragment() {
             }
         })
 
-
+        //수입 선택
         btnPlus.setOnClickListener {
             selected = "plus"
             selectChange(selected)
         }
 
+        //지출 선택
         btnMinus.setOnClickListener {
             selected = "minus"
             selectChange(selected)
         }
 
+        //내역 추가 버튼 선택
         btnAdd.setOnClickListener {
             val dialog = DayDialog(requireActivity())
             dialog.showDialog(year, month, day, selected)
@@ -125,6 +123,7 @@ class DayFragment : Fragment() {
     }
 
     @SuppressLint("Range")
+    //내역 출력하기
     fun showHistory(acc: String, year: Int, month: Int, day: Int) {
         sqlitedb = dbManger.readableDatabase
 
@@ -146,12 +145,14 @@ class DayFragment : Fragment() {
         sqlitedb.close()
         dbManger.close()
 
+        //리사이클러뷰 내역 출력
         val historyAdapter = HistoryAdapter(itemList)
         historyAdapter.notifyDataSetChanged()
 
         rv_histoy.adapter = historyAdapter
         rv_histoy.layoutManager = LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false)
 
+        //내역 선택시 수정 및 삭제하는 다이얼로그 출력
         historyAdapter.itemClickListener = object : HistoryAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val item = itemList[position]
@@ -162,6 +163,7 @@ class DayFragment : Fragment() {
         }
     }
 
+    //수입, 지출 출력 & 버튼 색 변화
     fun selectChange(selected: String){
         showHistory(selected, year, month, day)
         if (selected == "plus"){

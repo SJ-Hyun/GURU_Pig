@@ -31,34 +31,23 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        //바텀 메뉴
         val bt_nav = findViewById<BottomNavigationView>(R.id.bottomnav)
 
         bt_nav.setOnItemSelectedListener { item ->
             changeFragment(
                 when (item.itemId) {
-                    R.id.tab1 -> {
-                        //bt_nav.itemIconTintList = ContextCompat.getColorStateList(this, R.color.color_bnv1)
-                        //bt_nav.itemTextColor = ContextCompat.getColorStateList(this, R.color.color_bnv1)
+                    R.id.tab1 -> { //월별 프래그먼트
                         MonthFragment()
-                        // Respond to navigation item 1 click
                     }
-                    R.id.tab2 -> {
-                        //bt_nav.itemIconTintList = ContextCompat.getColorStateList(this, R.color.color_bnv2)
-                        //bt_nav.itemTextColor = ContextCompat.getColorStateList(this, R.color.color_bnv2)
+                    R.id.tab2 -> { //일별 프래그먼트
                         DayFragment()
-                        // Respond to navigation item 2 click
                     }
-                    R.id.tab3 -> {
-                        //bt_nav.itemIconTintList = ContextCompat.getColorStateList(this, R.color.color_bnv2)
-                        //bt_nav.itemTextColor = ContextCompat.getColorStateList(this, R.color.color_bnv2)
-                        ClosingFragment()
-                        // Respond to navigation item 3 click
-                    }
-                    else -> {
-                        //bt_nav.itemIconTintList = ContextCompat.getColorStateList(this, R.color.color_bnv2)
-                        //bt_nav.itemTextColor = ContextCompat.getColorStateList(this, R.color.color_bnv2)
+                    R.id.tab3 -> { //통계 프래그먼트
                         StatFragment()
-                        // Respond to navigation item 3 click
+                    }
+                    else -> { //결산 프래그먼트
+                        ClosingFragment()
                     }
                 }
             )
@@ -72,16 +61,12 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {{}
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.item1->{
                 val intent = Intent(this, PigBank::class.java)
                 startActivity(intent)
             }
-            //R.id.item2->{
-            //   val intent = Intent(this, AlbumActivity::class.java)
-            //    startActivity(intent)
-            //}
         }
 
         return super.onOptionsItemSelected(item)

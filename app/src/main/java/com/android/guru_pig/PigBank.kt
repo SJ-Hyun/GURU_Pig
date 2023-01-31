@@ -29,6 +29,8 @@ class PigBank : AppCompatActivity() {
 
         //돼지이미지
         pigImage=findViewById(R.id.pigImage)
+
+        //총 저축액
         totalText=findViewById(R.id.totalText)
 
         //db
@@ -72,6 +74,7 @@ class PigBank : AppCompatActivity() {
         else pigImage!!.setImageResource(R.drawable.pigcha4)
 
 
+        //앨범 버튼 선택
         pushAlbum.setOnClickListener {
             val intent = Intent(this, AlbumActivity::class.java)
             intent.putExtra("total",totalSaving)
@@ -81,6 +84,7 @@ class PigBank : AppCompatActivity() {
 
     }
 
+    //뒤로 가기
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home ->{

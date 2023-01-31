@@ -1,12 +1,10 @@
 package com.android.guru_pig
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.os.Bundle
-import android.renderscript.ScriptGroup
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -66,10 +64,9 @@ class ClosingFragment : Fragment() {
         loadData()
 
         var cursor: Cursor
-
         var month : Int = Calendar.getInstance().get(Calendar.MONTH)+1
 
-        //goalBtn 클릭하면 목표 지출액이 db에 입력돼야 함
+        //goalBtn 클릭하면 지출예산 db 입력
         goalBtn.setOnClickListener {
             //지출예산
             var goal_money:String = goalText.text.toString()
@@ -82,7 +79,7 @@ class ClosingFragment : Fragment() {
             saveData(goal_money)
         }
 
-        //월별
+        //월별 총수입 총지출 출력
         for (i in 1..12){
             var monthPlus = 0
             var monthMinus = 0
@@ -130,7 +127,6 @@ class ClosingFragment : Fragment() {
             var money = cursor.getInt(0)
             allPlus += money
         }
-
         plusTextView.text = allPlus.toString()
 
         //총지출
