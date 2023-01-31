@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,11 +36,12 @@ class ClosingFragment : Fragment() {
     lateinit var minusTextView: TextView
 
     lateinit var goalBtn: Button
-    lateinit var goalText : EditText
+    lateinit var goalText: EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 
@@ -61,23 +63,27 @@ class ClosingFragment : Fragment() {
         goalBtn = view.findViewById(R.id.goalBtn)
         goalText = view.findViewById(R.id.goalText)
 
-
+        loadData()
 
         var cursor: Cursor
+
+        var month : Int = Calendar.getInstance().get(Calendar.MONTH)+1
+
         //goalBtn 클릭하면 목표 지출액이 db에 입력돼야 함
         goalBtn.setOnClickListener {
             //지출예산
             var goal_money:String = goalText.text.toString()
 
-            sqlitedb.execSQL("INSERT INTO goal VALUES('"+goal_money+"')")
+            sqlitedb = dbManger.writableDatabase
+                sqlitedb.execSQL("INSERT INTO goal VALUES("+month+", "+goal_money+")")
+            sqlitedb.close()
+            dbManger.close()
+
+            saveData(goal_money)
         }
 
-
-
         //월별
-        var month: Int = 12
-
-        for (i in 1..month){
+        for (i in 1..12){
             var monthPlus = 0
             var monthMinus = 0
 
@@ -91,8 +97,6 @@ class ClosingFragment : Fragment() {
                 var money = cursor.getInt(0)
                 monthPlus += money
             }
-
-            cursor = sqlitedb.rawQuery("INSERT INTO  monthPlus FROM plus WHERE month="+i, null)
 
             cursor = sqlitedb.rawQuery("SELECT money FROM minus WHERE month="+i, null)
             while(cursor.moveToNext()) {
@@ -116,18 +120,7 @@ class ClosingFragment : Fragment() {
             layout_item.addView(tvMonthMinus)
 
             layout2.addView(layout_item)
-
-            //저축액
-            var total = monthPlus - monthMinus
-
-
         }
-
-
-        //저축액
-
-        cursor = sqlitedb.rawQuery("")
-
 
         //총수입
         cursor = sqlitedb.rawQuery("SELECT money FROM plus", null)
@@ -155,6 +148,24 @@ class ClosingFragment : Fragment() {
 
         return view
     }
+
+    private fun saveData(goal: String){
+        var pref = getActivity()?.getPreferences(0)
+        var editor = pref?.edit()
+
+        editor?.putString("KEY_GOAL",goal)?.apply()
+    }
+
+    private fun loadData(){
+        var pref = getActivity()?.getPreferences(0)
+        var goal = pref?.getString("KEY_GOAL","")
+
+        if(goal != ""){
+            goalText.setText(goal)
+        }
+
+    }
+
 
 
 }

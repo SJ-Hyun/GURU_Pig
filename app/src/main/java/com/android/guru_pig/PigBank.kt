@@ -1,6 +1,7 @@
 package com.android.guru_pig
 
 import android.content.Intent
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -18,6 +19,8 @@ import java.io.ByteArrayOutputStream
 class PigBank : AppCompatActivity() {
     lateinit var pigImage: ImageView
 
+    lateinit var totalText: TextView
+
     lateinit var dbManger: DBManger
     lateinit var sqlitedb: SQLiteDatabase
 
@@ -32,27 +35,66 @@ class PigBank : AppCompatActivity() {
 
         //돼지이미지
         pigImage=findViewById(R.id.pigImage)
+        totalText=findViewById(R.id.totalText)
 
 
         //db
+
         dbManger = DBManger(this, "accountDB", null, 1)
         sqlitedb = dbManger.readableDatabase
 
 
+        var cursor: Cursor
+
+        var totalSaving = 0
+
+        for (i in 1..12) {
+            var g_money = 0
+            var monthPlus = 0
+            var monthMinus = 0
+
+            cursor = sqlitedb.rawQuery("SELECT g_money FROM goal WHERE month=" + i, null)
+            while (cursor.moveToNext()) {
+                var money = cursor.getInt(0)
+                g_money = money
+            }
+
+            cursor = sqlitedb.rawQuery("SELECT money FROM plus WHERE month=" + i, null)
+            while (cursor.moveToNext()) {
+                var money = cursor.getInt(0)
+                monthPlus += money
+            }
+
+            cursor = sqlitedb.rawQuery("SELECT money FROM minus WHERE month=" + i, null)
+            while (cursor.moveToNext()) {
+                var money = cursor.getInt(0)
+                monthMinus += money
+            }
+
+            totalSaving += g_money-(monthMinus-monthPlus)
+        }
+
+        cursor.close()
+        sqlitedb.close()
+        dbManger.close()
+
 
         pushAlbum.setOnClickListener {
             val intent = Intent(this, AlbumActivity::class.java)
+            intent.putExtra("total",totalSaving)
             startActivity(intent)
         }
 
         //저축액 달성시 캐릭터 전환
-        /*var tText = totalText.text.toString()
-        var total: Int = tText.toInt()
+        //var tText = totalText.text.toString()
+        //var total: Int = tText.toInt()
+        totalText.text = totalSaving.toString()
 
-        if(total<100000) pigImage!!.setImageResource(R.drawable.pigcha1)
-        else if(total<200000) pigImage!!.setImageResource(R.drawable.pigcha2)
-        else if(total<300000) pigImage!!.setImageResource(R.drawable.pigcha3)
-        else pigImage!!.setImageResource(R.drawable.pigcha4)*/
+        if(totalSaving<100000) pigImage!!.setImageResource(R.drawable.pigcha1)
+        else if(totalSaving<200000) pigImage!!.setImageResource(R.drawable.pigcha2)
+        else if(totalSaving<300000) pigImage!!.setImageResource(R.drawable.pigcha3)
+        else pigImage!!.setImageResource(R.drawable.pigcha4)
+
 
     }
 

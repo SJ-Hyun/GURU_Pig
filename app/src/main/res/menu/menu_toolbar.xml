@@ -7,20 +7,7 @@
         android:enabled="true"
         android:title="메뉴1"
         android:icon="@drawable/min_toolbar_pig_size"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/item2"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_calendar_view_month_24"
-        android:title="메뉴2"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/item3"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="메뉴3"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        android:gravity="center"/>
 
 </menu>

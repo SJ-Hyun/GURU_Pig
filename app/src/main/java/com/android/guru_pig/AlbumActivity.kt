@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,6 +22,8 @@ class AlbumActivity : AppCompatActivity() {
     lateinit var albumImage3: ImageView
     lateinit var albumImage4: ImageView
 
+    //lateinit var totalText: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_album)
@@ -28,11 +31,15 @@ class AlbumActivity : AppCompatActivity() {
         albumImage1 = findViewById(R.id.albumImage1)
         albumImage2 = findViewById(R.id.albumImage2)
         albumImage3 = findViewById(R.id.albumImage3)
-        albumImage4= findViewById(R.id.albumImage4)
+        albumImage4 = findViewById(R.id.albumImage4)
+
+        //totalText = findViewById(R.id.totalText)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val totalSaving = intent.getIntExtra("total",0)
 
         //이미지 클릭시 다이얼로그
        albumImage1.setOnClickListener{
@@ -53,7 +60,7 @@ class AlbumActivity : AppCompatActivity() {
             val album_dial = dialogView.findViewById<ImageView>(R.id.dial_album)
             album_dial.setImageResource(R.drawable.pigcha2)
             builder.setIcon(R.drawable.min_toolbar_pig_size)
-            builder.setTitle("한살")
+            builder.setTitle("삼개월")
             builder.setNegativeButton("닫기", null)
             builder.show()
         }
@@ -84,13 +91,14 @@ class AlbumActivity : AppCompatActivity() {
 
 
         //저축액 달성시 앨범에 캐릭터 보이도록
-        /*var tText = totalText.text.toString()
-        var total: Int = tText.toInt()
+        //var tText = totalText.text.toString()
+        //var total: Int = tText.toInt()
 
-        if(total<100000) albumImage1!!.setVisibility(View.VISIBLE)
-        else if(total<200000) albumImage2!!.setVisibility(View.VISIBLE)
-        else if(total<300000) albumImage3!!.setVisibility(View.VISIBLE)
-        else albumImage4!!.setVisibility(View.VISIBLE)*/
+
+        if(totalSaving<100000) albumImage1!!.setVisibility(View.VISIBLE)
+        else if(totalSaving<200000) albumImage2!!.setVisibility(View.VISIBLE)
+        else if(totalSaving<300000) albumImage3!!.setVisibility(View.VISIBLE)
+        else albumImage4!!.setVisibility(View.VISIBLE)
 
 
     }

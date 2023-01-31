@@ -88,7 +88,7 @@ class DayDialog(context: Context) {
         val updateBtn = dialog.findViewById<Button>(R.id.btnUpdate)
 
         var plusArray = arrayOf("월급","부수입","용돈","상여금","금융소득","기타")
-        var minusArray = arrayOf("식비","교통","문화생활","편의생활","패션/미용","주거/통신","건강","교육","식비","경조사/선물","반려동물","기타")
+        var minusArray = arrayOf("식비","교통","문화생활","편의생활","패션/미용","주거/통신","건강","교육","경조사/선물","반려동물","기타")
 
         val acontext: Context = applicationContext()
         dbManger = DBManger(acontext, "accountDB", null, 1)

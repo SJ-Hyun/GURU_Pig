@@ -11,7 +11,7 @@ class DBManger(
     version: Int
 ) : SQLiteOpenHelper(context, name, factory, version) {
     override fun onCreate(db: SQLiteDatabase?) {
-        db!!.execSQL("CREATE TABLE goal (g_money INTEGER, g_plus INTEGER, g_minus INTEGER);")
+        db!!.execSQL("CREATE TABLE goal (month INTEGER, g_money INTEGER);")
         db!!.execSQL("CREATE TABLE plus (year INTEGER, month INTEGER, day INTEGER, class text, money INTEGER, content text);")
         db!!.execSQL("CREATE TABLE minus (year INTEGER, month INTEGER, day INTEGER, class text, money INTEGER, content text);")
     }

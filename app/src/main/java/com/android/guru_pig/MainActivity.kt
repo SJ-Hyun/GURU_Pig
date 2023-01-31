@@ -78,14 +78,10 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, PigBank::class.java)
                 startActivity(intent)
             }
-            R.id.item2->{
-                val intent = Intent(this, AlbumActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.item3->{
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }
+            //R.id.item2->{
+            //   val intent = Intent(this, AlbumActivity::class.java)
+            //    startActivity(intent)
+            //}
         }
 
         return super.onOptionsItemSelected(item)

@@ -140,7 +140,7 @@ class DayFragment : Fragment() {
             var money = cursor.getInt(cursor.getColumnIndex("money"))
             var str_content = cursor.getString(cursor.getColumnIndex("content")).toString()
 
-            itemList.add(HistoryItem(acc, str_class, str_content, money.toString()+"원"))
+            itemList.add(HistoryItem(acc, str_class, str_content, money.toString()))
         }
         cursor.close()
         sqlitedb.close()

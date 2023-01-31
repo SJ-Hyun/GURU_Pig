@@ -55,21 +55,6 @@
 
         <LinearLayout
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <TextView
-                android:id="@+id/nameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="회원이름"
-                android:textSize="20sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -84,7 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:id="@+id/totalText"/>
+                android:id="@+id/totalText"
+                android:textSize="20sp"/>
         </LinearLayout>
 
     </LinearLayout>
