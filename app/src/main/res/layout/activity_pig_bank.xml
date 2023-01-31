@@ -57,6 +57,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:orientation="vertical"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <TextView
@@ -70,16 +71,21 @@
 
         <LinearLayout
             android:layout_weight="1"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <TextView
-                android:id="@+id/totalText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_gravity="top"
                 android:text="총저축액: "
                 android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:id="@+id/totalText"/>
         </LinearLayout>
 
     </LinearLayout>

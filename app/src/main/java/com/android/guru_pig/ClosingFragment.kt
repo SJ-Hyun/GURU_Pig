@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 
@@ -34,6 +35,7 @@ class ClosingFragment : Fragment() {
     lateinit var minusTextView: TextView
 
     lateinit var goalBtn: Button
+    lateinit var goalText : EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,14 +59,22 @@ class ClosingFragment : Fragment() {
         minusTextView = view.findViewById(R.id.minusText)
 
         goalBtn = view.findViewById(R.id.goalBtn)
+        goalText = view.findViewById(R.id.goalText)
 
+
+
+        var cursor: Cursor
         //goalBtn 클릭하면 목표 지출액이 db에 입력돼야 함
         goalBtn.setOnClickListener {
+            //지출예산
+            var goal_money:String = goalText.text.toString()
 
+            sqlitedb.execSQL("INSERT INTO goal VALUES('"+goal_money+"')")
         }
 
+
+
         //월별
-        var cursor: Cursor
         var month: Int = 12
 
         for (i in 1..month){
@@ -82,11 +92,14 @@ class ClosingFragment : Fragment() {
                 monthPlus += money
             }
 
+            cursor = sqlitedb.rawQuery("INSERT INTO  monthPlus FROM plus WHERE month="+i, null)
+
             cursor = sqlitedb.rawQuery("SELECT money FROM minus WHERE month="+i, null)
             while(cursor.moveToNext()) {
                 var money = cursor.getInt(0)
                 monthMinus += money
             }
+
 
             var tvMonth: TextView = TextView(getActivity())
             tvMonth.text = i.toString()+"월"
@@ -104,7 +117,17 @@ class ClosingFragment : Fragment() {
 
             layout2.addView(layout_item)
 
+            //저축액
+            var total = monthPlus - monthMinus
+
+
         }
+
+
+        //저축액
+
+        cursor = sqlitedb.rawQuery("")
+
 
         //총수입
         cursor = sqlitedb.rawQuery("SELECT money FROM plus", null)
